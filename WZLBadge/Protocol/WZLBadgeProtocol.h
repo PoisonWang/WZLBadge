@@ -28,6 +28,7 @@ static char badgeFontKey;
 static char badgeTextColorKey;
 static char badgeAniTypeKey;
 static char badgeFrameKey;
+static char badgeMinHeightKey;
 static char badgeCenterOffsetKey;
 static char badgeMaximumBadgeNumberKey;
 static char badgeRadiusKey;
@@ -61,6 +62,7 @@ typedef NS_ENUM(NSUInteger, WBadgeAnimType)
 @property (nonatomic, strong) UIColor *badgeTextColor;              /* white color by default if not set */
 @property (nonatomic, assign) CGRect badgeFrame;                    /* we have optimized the badge frame and center.
                                                                         This property is adviced not to set manually */
+@property (nonatomic, assign) CGFloat badgeMinHeight;               
 
 @property (nonatomic, assign) CGPoint  badgeCenterOffset;           /* offset from right-top corner. {0,0} by default */
                                                                     /* For x, negative number means left offset

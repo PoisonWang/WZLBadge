@@ -139,6 +139,11 @@ static const CGFloat kWZLBadgeDefaultRedDotRadius = 4.f;
     CGRect frame = self.badge.frame;
     frame.size.width += 4;
     frame.size.height += 4;
+    if (self.badge.badgeMinHeight > 0) {
+        if(CGRectGetHeight(frame) < self.badge.badgeMinHeight) {
+            frame.size.height = self.badge.badgeMinHeight;
+        }
+    }
     if(CGRectGetWidth(frame) < CGRectGetHeight(frame)) {
         frame.size.width = CGRectGetHeight(frame);
     }
@@ -349,6 +354,24 @@ static const CGFloat kWZLBadgeDefaultRedDotRadius = 4.f;
         [self badgeInit];
     }
     self.badge.frame = badgeFrame;
+}
+
+- (CGFloat)badgeMinHeight
+{
+    id obj = objc_getAssociatedObject(self, &badgeMinHeightKey);
+    if (obj != nil && [obj isKindOfClass:[NSNumber class]]) {
+        return [obj floatValue];
+    } else {
+        return 0;
+    }
+}
+
+- (void)setBadgeMinHeight:(CGFloat)badgeMinHeight
+{
+    objc_setAssociatedObject(self, &badgeMinHeightKey, [NSNumber numberWithFloat:badgeMinHeight], OBJC_ASSOCIATION_RETAIN);
+    if (!self.badge) {
+        [self badgeInit];
+    }
 }
 
 - (CGPoint)badgeCenterOffset

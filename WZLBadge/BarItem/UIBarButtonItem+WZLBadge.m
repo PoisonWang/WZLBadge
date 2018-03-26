@@ -127,6 +127,16 @@
     [kActualView setBadgeFrame:badgeFrame];
 }
 
+- (CGFloat)badgeMinHeight
+{
+    return [kActualView badgeMinHeight];
+}
+
+- (void)setBadgeMinHeight:(CGFloat)badgeMinHeight
+{
+    [kActualView setBadgeMinHeight:badgeMinHeight];
+}
+
 - (CGPoint)badgeCenterOffset
 {
     return [kActualView badgeCenterOffset];

@@ -66,10 +66,10 @@
         if (i == 1) {
             btn.badgeBgColor = [UIColor purpleColor];
             btn.badgeCenterOffset = CGPointMake(-btn.width, 0);
-        } else
-            if (i == 2) {
-                btn.badgeBgColor = [UIColor blueColor];
-            }
+        } else if (i == 2) {
+            btn.badgeBgColor = [UIColor blueColor];
+        }
+        btn.badge.badgeMinHeight = 18;
         [btn showBadgeWithStyle:styles[i] value:100 animationType:WBadgeAnimTypeNone];//actual badge call comes here.
         [staticBadges addObject:btn];
     }
