@@ -69,7 +69,6 @@
         } else if (i == 2) {
             btn.badgeBgColor = [UIColor blueColor];
         }
-        btn.badge.badgeMinHeight = 18;
         [btn showBadgeWithStyle:styles[i] value:100 animationType:WBadgeAnimTypeNone];//actual badge call comes here.
         [staticBadges addObject:btn];
     }

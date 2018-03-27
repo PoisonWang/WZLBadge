@@ -56,6 +56,37 @@ static const CGFloat kWZLBadgeDefaultRedDotRadius = 4.f;
     }
 }
 
+- (void)showNumberBadgeWithValue:(NSInteger)value badgeHeight:(CGFloat)height
+{
+    if (value < 0) {
+        return;
+    }
+    [self badgeInit];
+    self.badge.hidden = (value == 0);
+    self.badge.tag = WBadgeStyleNumber;
+    self.badge.font = self.badgeFont;
+    self.badge.text = (value > self.badgeMaximumBadgeNumber ?
+                       [NSString stringWithFormat:@"%@+", @(self.badgeMaximumBadgeNumber)] :
+                       [NSString stringWithFormat:@"%@", @(value)]);
+    [self adjustLabelWidth:self.badge];
+    CGRect frame = self.badge.frame;
+    
+    if (value < 10) {   // 只有一位数
+        frame.size = CGSizeMake(height, height);
+    }else {
+        NSString *tempText = self.badge.text;
+        self.badge.text = @"8";
+        CGFloat singleW = [self.badge sizeThatFits:CGSizeZero].width;
+        self.badge.text = tempText;
+        
+        frame.size.height = height;
+        frame.size.width += singleW;
+    }
+    self.badge.frame = frame;
+    self.badge.center = CGPointMake(CGRectGetWidth(self.frame) + 2 + self.badgeCenterOffset.x, self.badgeCenterOffset.y);
+    self.badge.layer.cornerRadius = CGRectGetHeight(self.badge.frame) / 2.f;
+}
+
 - (void)showNumberBadgeWithValue:(NSInteger)value animationType:(WBadgeAnimType)aniType {
     self.aniType = aniType;
     [self showNumberBadgeWithValue:value];
@@ -139,11 +170,6 @@ static const CGFloat kWZLBadgeDefaultRedDotRadius = 4.f;
     CGRect frame = self.badge.frame;
     frame.size.width += 4;
     frame.size.height += 4;
-    if (self.badge.badgeMinHeight > 0) {
-        if(CGRectGetHeight(frame) < self.badge.badgeMinHeight) {
-            frame.size.height = self.badge.badgeMinHeight;
-        }
-    }
     if(CGRectGetWidth(frame) < CGRectGetHeight(frame)) {
         frame.size.width = CGRectGetHeight(frame);
     }
@@ -354,24 +380,6 @@ static const CGFloat kWZLBadgeDefaultRedDotRadius = 4.f;
         [self badgeInit];
     }
     self.badge.frame = badgeFrame;
-}
-
-- (CGFloat)badgeMinHeight
-{
-    id obj = objc_getAssociatedObject(self, &badgeMinHeightKey);
-    if (obj != nil && [obj isKindOfClass:[NSNumber class]]) {
-        return [obj floatValue];
-    } else {
-        return 0;
-    }
-}
-
-- (void)setBadgeMinHeight:(CGFloat)badgeMinHeight
-{
-    objc_setAssociatedObject(self, &badgeMinHeightKey, [NSNumber numberWithFloat:badgeMinHeight], OBJC_ASSOCIATION_RETAIN);
-    if (!self.badge) {
-        [self badgeInit];
-    }
 }
 
 - (CGPoint)badgeCenterOffset

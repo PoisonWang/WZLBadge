@@ -37,6 +37,12 @@
     [kActualView showBadgeWithStyle:style value:value animationType:aniType];
 }
 
+- (void)showNumberBadgeWithValue:(NSInteger)value
+                     badgeHeight:(CGFloat)height
+{
+    [kActualView showNumberBadgeWithValue:value badgeHeight:height];
+}
+
 /**
  *  clear badge
  */
@@ -144,16 +150,6 @@
 - (void)setBadgeFrame:(CGRect)badgeFrame
 {
     [kActualView setBadgeFrame:badgeFrame];
-}
-
-- (CGFloat)badgeMinHeight
-{
-    return [kActualView badgeMinHeight];
-}
-
-- (void)setBadgeMinHeight:(CGFloat)badgeMinHeight
-{
-    [kActualView setBadgeMinHeight:badgeMinHeight];
 }
 
 - (CGPoint)badgeCenterOffset

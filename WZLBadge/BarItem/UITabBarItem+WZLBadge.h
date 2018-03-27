@@ -29,6 +29,11 @@
                      value:(NSInteger)value
              animationType:(WBadgeAnimType)aniType;
 
+/**
+ *  高度固定，宽度随文字长度改变
+ */
+- (void)showNumberBadgeWithValue:(NSInteger)value
+                     badgeHeight:(CGFloat)height;
 
 /**
  *  clear badge(hide badge)
